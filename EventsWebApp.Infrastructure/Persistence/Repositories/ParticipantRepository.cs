@@ -1,4 +1,4 @@
-﻿using EventsWebApp.Domain.Contracts;
+﻿using EventsWebApp.Domain.Contracts.Persistence;
 using EventsWebApp.Domain.Entities;
 using EventsWebApp.Domain.RequestFeatures;
 using EventsWebApp.Domain.RequestFeatures.ModelParameters;

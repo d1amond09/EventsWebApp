@@ -1,13 +1,19 @@
-﻿using EventsWebApp.Domain.Contracts;
+﻿using System.Reflection.Metadata;
+using EventsWebApp.Application;
+using EventsWebApp.Application.DTOs;
+using EventsWebApp.Domain.Contracts.Persistence;
+using EventsWebApp.Domain.Contracts.Services;
 using EventsWebApp.Domain.Entities;
 using EventsWebApp.Infrastructure.Persistence;
 using EventsWebApp.Infrastructure.Persistence.Repositories;
+using EventsWebApp.Infrastructure.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using NLog;
 
 namespace EventsWebApp.API.Extensions;
 
-public static class ServiceCollectionExtensions
+public static class BuilderServiceCollectionExtensions
 {
 	public static WebApplicationBuilder AddDataBase(this WebApplicationBuilder builder)
 	{
@@ -23,8 +29,8 @@ public static class ServiceCollectionExtensions
 
 	public static WebApplicationBuilder AddApplicationServices(this WebApplicationBuilder builder)
 	{
-		builder.Services.AddScoped<IRepositoryManager, RepositoryManager>();
-
+		builder.Services.AddControllers();
+		builder.Services.AddOpenApi();
 		builder.Services.AddCors(options =>
 		{
 			options.AddPolicy("CorsPolicy", builder =>
@@ -34,6 +40,24 @@ public static class ServiceCollectionExtensions
 			.AllowAnyHeader()
 			.WithExposedHeaders("X-Pagination"));
 		});
+
+		builder.Services.AddAutoMapper(x => x.AddProfile(new MappingProfile()));
+		builder.Services.AddMediatR(cfg =>
+			cfg.RegisterServicesFromAssembly(typeof(MappingProfile).Assembly));
+
+		builder.Services.AddScoped<IRepositoryManager, RepositoryManager>();
+		return builder;
+	}
+
+	public static WebApplicationBuilder AddInfrastructureServices(this WebApplicationBuilder builder)
+	{
+		LogManager.Setup().LoadConfigurationFromFile("nlog.config", true);
+
+		builder.Services.AddSingleton<ILoggingService, LoggingService>();
+
+		builder.Services.AddScoped<IDataShapeService<EventDto>, DataShapeService<EventDto>>();
+		builder.Services.AddScoped<IDataShapeService<ParticipantDto>, DataShapeService<ParticipantDto>>();
+		builder.Services.AddScoped<IDataShapeService<UserDto>, DataShapeService<UserDto>>();
 
 		return builder;
 	}

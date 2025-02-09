@@ -1,9 +1,7 @@
 ﻿using EventsWebApp.Domain.Entities;
-using EventsWebApp.Domain.RequestFeatures.ModelParameters;
-using EventsWebApp.Domain.RequestFeatures;
 using Microsoft.AspNetCore.Identity;
 
-namespace EventsWebApp.Domain.Contracts;
+namespace EventsWebApp.Domain.Contracts.Persistence;
 
 public interface IUserRepository
 {

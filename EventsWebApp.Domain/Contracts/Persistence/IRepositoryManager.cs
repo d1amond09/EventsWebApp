@@ -1,4 +1,4 @@
-﻿namespace EventsWebApp.Domain.Contracts;
+﻿namespace EventsWebApp.Domain.Contracts.Persistence;
 
 public interface IRepositoryManager
 {

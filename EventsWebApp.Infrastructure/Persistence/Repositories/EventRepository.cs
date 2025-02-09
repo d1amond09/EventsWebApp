@@ -1,4 +1,4 @@
-﻿using EventsWebApp.Domain.Contracts;
+﻿using EventsWebApp.Domain.Contracts.Persistence;
 using EventsWebApp.Domain.Entities;
 using EventsWebApp.Domain.RequestFeatures;
 using EventsWebApp.Domain.RequestFeatures.ModelParameters;
@@ -10,7 +10,7 @@ namespace EventsWebApp.Infrastructure.Persistence.Repositories;
 public class EventRepository(AppDbContext appDbContext) :
 	RepositoryBase<Event>(appDbContext), IEventRepository
 {
-	public async Task<PagedList<Event>> GetWithPaginationAsync(EventParameters eventParameters, bool trackChanges = false)
+	public async Task<PagedList<Event>> GetWithPaginationAsync(EventParameters eventParameters, bool trackChanges)
 	{
 		var events = FindAll(trackChanges)
 			.FilterByDateTime(eventParameters.MinDateTime, eventParameters.MaxDateTime)
@@ -34,7 +34,7 @@ public class EventRepository(AppDbContext appDbContext) :
 		);
 	}
 
-	public async Task<Event?> GetByIdAsync(Guid id, bool trackChanges = false) =>
+	public async Task<Event?> GetByIdAsync(Guid id, bool trackChanges) =>
 		await FindByCondition(c => c.Id.Equals(id), trackChanges)
 			 .SingleOrDefaultAsync();
 

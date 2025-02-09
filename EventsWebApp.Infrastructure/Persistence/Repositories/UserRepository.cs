@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using EventsWebApp.Domain.Contracts;
+using EventsWebApp.Domain.Contracts.Persistence;
 using EventsWebApp.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

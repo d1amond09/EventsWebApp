@@ -2,7 +2,7 @@
 using EventsWebApp.Domain.RequestFeatures.ModelParameters;
 using EventsWebApp.Domain.RequestFeatures;
 
-namespace EventsWebApp.Domain.Contracts;
+namespace EventsWebApp.Domain.Contracts.Persistence;
 
 public interface IEventRepository : IRepository<Event>
 {

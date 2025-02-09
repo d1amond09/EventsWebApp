@@ -1,5 +1,5 @@
 ﻿using System.Linq.Expressions;
-using EventsWebApp.Domain.Contracts;
+using EventsWebApp.Domain.Contracts.Persistence;
 using Microsoft.EntityFrameworkCore;
 
 namespace EventsWebApp.Infrastructure.Persistence.Repositories;
