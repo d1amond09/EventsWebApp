@@ -1,18 +1,15 @@
-﻿using EventsWebApp.Domain.RequestFeatures;
-using System.Text.Json;
-using MediatR;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using EventsWebApp.Domain.RequestFeatures.ModelParameters;
-using EventsWebApp.Application.UseCases.Events.GetEvents;
-using EventsWebApp.API.Extensions;
-using EventsWebApp.Domain.Models;
-using EventsWebApp.Application.UseCases.Events.GetEvent;
-using EventsWebApp.Application.DTOs;
-using EventsWebApp.Application.UseCases.Events.CreateEvent;
+﻿using EventsWebApp.Application.UseCases.Events.CreateEvent;
 using EventsWebApp.Application.UseCases.Events.DeleteEvent;
 using EventsWebApp.Application.UseCases.Events.UpdateEvent;
+using EventsWebApp.Domain.RequestFeatures.ModelParameters;
+using EventsWebApp.Application.UseCases.Events.GetEvents;
+using EventsWebApp.Application.UseCases.Events.GetEvent;
+using EventsWebApp.Application.DTOs;
+using EventsWebApp.API.Extensions;
+using EventsWebApp.Domain.Models;
+using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
+using MediatR;
 
 namespace EventsWebApp.API.Controllers;
 

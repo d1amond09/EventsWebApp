@@ -17,8 +17,8 @@ public class MappingProfile : Profile
 		CreateMap<ParticipantForUpdateDto, Participant>();
 
 		CreateMap<User, UserDto>();
-		CreateMap<UserForCreationDto, User>();
 		CreateMap<UserForUpdateDto, User>();
+		CreateMap<UserForRegistrationDto, User>();
 	}
 }
 

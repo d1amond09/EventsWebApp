@@ -7,13 +7,20 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="UseCases\Auth\" />
-    <Folder Include="UseCases\Participants\" />
+    <Folder Include="Validators\" />
+    <Folder Include="UseCases\Participants\UpdateParticipant\" />
+    <Folder Include="UseCases\Participants\GetParticipant\" />
+    <Folder Include="UseCases\Participants\GetParticipants\" />
+    <Folder Include="UseCases\Participants\DeleteParticipant\" />
+    <Folder Include="UseCases\Participants\CreateParticipant\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="13.0.1" />
+    <PackageReference Include="FluentValidation" Version="11.11.0" />
     <PackageReference Include="MediatR" Version="12.4.1" />
+    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="8.4.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.4.0" />
   </ItemGroup>
 
   <ItemGroup>
