@@ -38,8 +38,7 @@ public class EventRepository(AppDbContext appDbContext) :
 	{
 		var events = FindAll(trackChanges)
 			.Include(e => e.Participants)
-			.Where(e => e.Participants.Select(x => x.UserId)
-			.Contains(userId))
+			.Where(e => e.Participants.Select(x => x.UserId).Contains(userId))
 			.FilterByDateTime(eventParameters.MinDateTime, eventParameters.MaxDateTime)
 			.SearchByLocation(eventParameters.Location)
 			.SearchByCategory(eventParameters.Category)

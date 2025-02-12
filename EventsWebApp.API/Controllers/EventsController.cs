@@ -12,6 +12,7 @@ using System.Text.Json;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
+using EventsWebApp.Application.UseCases.Events.GetEventsByUser;
 
 namespace EventsWebApp.API.Controllers;
 
@@ -49,7 +50,7 @@ public class EventsController(ISender sender) : ControllerBase
 	{
 		if (Guid.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out Guid userId))
 		{
-			var baseResult = await _sender.Send(new GetEventsUseCase(eventParameters, TrackChanges: false));
+			var baseResult = await _sender.Send(new GetEventsByUserUseCase(userId, eventParameters, TrackChanges: false));
 
 			var response = baseResult.GetResult<ShapedEntitiesResponse>();
 

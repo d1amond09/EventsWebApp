@@ -9,6 +9,24 @@ public class EventConfiguration : IEntityTypeConfiguration<Event>
 {
 	public void Configure(EntityTypeBuilder<Event> builder)
 	{
+		builder.Property(e => e.Id)
+		   .IsRequired();
+
+		builder.Property(e => e.Name)
+			.IsRequired()
+			.HasMaxLength(100);
+
+		builder.Property(e => e.Category)
+			.IsRequired()
+			.HasMaxLength(255);
+
+		builder.Property(e => e.Location)
+			.HasMaxLength(255);
+
+		builder.Property(e => e.Description)
+			.IsRequired()
+			.HasMaxLength(500);
+
 		builder.HasData(
 		[
 			new Event

@@ -1,23 +1,23 @@
-﻿using System.Reflection.Metadata;
-using System.Text;
-using EventsWebApp.API.CustomTokenProviders;
-using EventsWebApp.Application;
-using EventsWebApp.Application.DTOs;
-using EventsWebApp.Domain.ConfigurationModels;
-using EventsWebApp.Domain.Contracts.Persistence;
-using EventsWebApp.Domain.Contracts.Services;
-using EventsWebApp.Domain.Entities;
-using EventsWebApp.Infrastructure.Persistence;
-using EventsWebApp.Infrastructure.Persistence.Repositories;
-using EventsWebApp.Infrastructure.Services;
+﻿using EventsWebApp.Infrastructure.Persistence.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using EventsWebApp.Domain.Contracts.Persistence;
+using EventsWebApp.Domain.ConfigurationModels;
+using EventsWebApp.Infrastructure.Persistence;
+using EventsWebApp.Domain.Contracts.Services;
+using EventsWebApp.API.CustomTokenProviders;
+using EventsWebApp.Infrastructure.Services;
+using EventsWebApp.Application.Behaviors;
 using Microsoft.AspNetCore.Http.Features;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Identity;
+using EventsWebApp.Application.DTOs;
+using Microsoft.EntityFrameworkCore;
+using EventsWebApp.Domain.Entities;
+using EventsWebApp.Application;
+using FluentValidation;
+using System.Text;
+using MediatR;
 using NLog;
-using static Org.BouncyCastle.Math.EC.ECCurve;
 
 namespace EventsWebApp.API.Extensions;
 
@@ -57,6 +57,8 @@ public static class BuilderServiceCollectionExtensions
 
 		builder.Services.AddScoped<IRepositoryManager, RepositoryManager>();
 
+		builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+		builder.Services.AddValidatorsFromAssembly(typeof(MappingProfile).Assembly);
 
 		return builder;
 	}

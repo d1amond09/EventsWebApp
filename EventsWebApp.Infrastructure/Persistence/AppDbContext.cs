@@ -8,7 +8,7 @@ namespace EventsWebApp.Infrastructure.Persistence;
 
 public class AppDbContext(DbContextOptions<AppDbContext> options) : IdentityDbContext<User, Role, Guid>(options)
 {
-	public DbSet<Event> Event { get; set; }
+	public DbSet<Event> Events { get; set; }
 	public DbSet<Participant> Participants { get; set; }
 
 	protected override void OnModelCreating(ModelBuilder modelBuilder)
