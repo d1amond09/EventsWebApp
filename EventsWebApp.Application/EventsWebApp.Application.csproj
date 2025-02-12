@@ -7,9 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="UseCases\Events\" />
-    <Folder Include="UseCases\Auth\" />
-    <Folder Include="UseCases\Participants\" />
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
+    <PackageReference Include="FluentValidation" Version="11.11.0" />
+    <PackageReference Include="MediatR" Version="12.4.1" />
+    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="8.4.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EventsWebApp.Domain\EventsWebApp.Domain.csproj" />
   </ItemGroup>
 
 </Project>
