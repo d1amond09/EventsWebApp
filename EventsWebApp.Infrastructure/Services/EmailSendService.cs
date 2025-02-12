@@ -7,7 +7,7 @@ using MimeKit;
 
 namespace EventsWebApp.Infrastructure.Services;
 
-public class EmailSender(EmailConfiguration emailConfig) : IEmailSendService
+public class EmailSendService(EmailConfiguration emailConfig) : IEmailSendService
 {
 	private readonly EmailConfiguration _emailConfig = emailConfig;
 

@@ -51,7 +51,7 @@ public class CreateTokenHandler : IRequestHandler<CreateTokenUseCase, ApiBaseRes
 		request.User.RefreshToken = refreshToken;
 
 		if (request.PopulateExp)
-			request.User.RefreshTokenExpiryTime = DateTime.Now.AddDays(7);
+			request.User.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(7);
 
 		await _rep.Users.UpdateAsync(request.User);
 

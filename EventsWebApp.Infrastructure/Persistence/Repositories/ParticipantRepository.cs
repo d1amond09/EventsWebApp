@@ -10,9 +10,10 @@ namespace EventsWebApp.Infrastructure.Persistence.Repositories;
 public class ParticipantRepository(AppDbContext appDbContext) :
 	RepositoryBase<Participant>(appDbContext), IParticipantRepository
 {
-	public async Task<PagedList<Participant>> GetWithPaginationAsync(ParticipantParameters participantParameters, bool trackChanges = false)
+	public async Task<PagedList<Participant>> GetForEventWithPaginationAsync(Guid eventId, ParticipantParameters participantParameters, bool trackChanges = false)
 	{
-		var participants = FindAll(trackChanges)
+		var participants = FindAll(trackChanges).Include(p => p.User)
+			.Where(p => p.EventId.Equals(eventId))
 			.FilterByRegisteredAt(participantParameters.MinRegisteredAt, participantParameters.MaxRegisteredAt);
 
 		var count = await participants.CountAsync();
@@ -31,11 +32,39 @@ public class ParticipantRepository(AppDbContext appDbContext) :
 		);
 	}
 
+	public async Task<bool> ParticipantContainsForEventAsync(Guid eventId, Guid userId, bool trackChanges = false)
+	{
+		var participants = FindAll(trackChanges)
+			.Where(p => p.EventId.Equals(eventId) && p.UserId.Equals(userId));
+
+		var count = await participants.CountAsync();
+
+		return count > 0;
+	}
+
+	public async Task<int> GetCountOfParticipantsForEventAsync(Guid eventId, bool trackChanges = false)
+	{
+		var participants = FindAll(trackChanges)
+			.Where(p => p.EventId.Equals(eventId));
+
+		var count = await participants.CountAsync();
+
+		return count;
+	}
+
+	public async Task<Participant?> GetByUserIdForEventAsync(Guid eventId, Guid userId, bool trackChanges = false) =>
+		await FindByCondition(p => p.UserId.Equals(userId) && p.EventId.Equals(eventId), trackChanges).Include(p => p.User)
+			 .SingleOrDefaultAsync();
+
+	public async Task<Participant?> GetByIdForEventAsync(Guid eventId, Guid id, bool trackChanges = false) =>
+		await FindByCondition(p => p.Id.Equals(id) && p.EventId.Equals(eventId), trackChanges).Include(p => p.User)
+			 .SingleOrDefaultAsync();
+
 	public async Task<Participant?> GetByIdAsync(Guid id, bool trackChanges = false) =>
-		await FindByCondition(c => c.Id.Equals(id), trackChanges)
+		await FindByCondition(p => p.Id.Equals(id), trackChanges).Include(p => p.User)
 			 .SingleOrDefaultAsync();
 
 	public async Task<IEnumerable<Participant>> GetByIdsAsync(IEnumerable<Guid> ids, bool trackChanges = false) =>
-		await FindByCondition(x => ids.Contains(x.Id), trackChanges)
+		await FindByCondition(p => ids.Contains(p.Id), trackChanges).Include(p => p.User)
 			 .ToListAsync();
 }

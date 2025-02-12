@@ -6,20 +6,10 @@ public record ParticipantDto
 {
 	public Guid Id { get; init; }
 	public Guid EventId { get; init; }
-	public EventDto? Event { get; init; }
 	public Guid UserId { get; init; }
-	public UserDto? User { get; init; }
+	public string? FirstName { get; set; }
+	public string? LastName { get; set; }
+	public DateTime BirthDate { get; init; }
 	public DateTime RegisteredAt { get; init; } = DateTime.UtcNow;
+	public string? Email { get; set; }
 }
-
-public record ParticipantForManipulationDto
-{
-	public Guid EventId { get; init; }
-	public EventDto? Event { get; init; }
-	public Guid UserId { get; init; }
-	public UserDto? User { get; init; }
-	public DateTime RegisteredAt { get; init; } = DateTime.UtcNow;
-}
-
-public record ParticipantForUpdateDto : ParticipantForManipulationDto;
-public record ParticipantForCreationDto : ParticipantForManipulationDto;

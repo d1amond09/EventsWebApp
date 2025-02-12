@@ -9,6 +9,6 @@ public class Event
 	public string Location { get; set; } = string.Empty;
 	public string Category { get; set; } = string.Empty;
 	public int MaxCountParticipants { get; set; }
-	public string? Image { get; set; } = null;
+	public byte[]? Image { get; set; } = null;
 	public virtual ICollection<Participant> Participants { get; set; } = [];
 }

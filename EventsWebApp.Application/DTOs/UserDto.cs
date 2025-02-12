@@ -10,7 +10,7 @@ public record UserDto
 	public string? FirstName { get; init; }
 	public string? LastName { get; init; }
 	public string? Email { get; init; }
-	public DateTime CreatedAt { get; init; } = DateTime.UtcNow;
+	public DateTime BirthDate { get; init; }
 	public virtual ICollection<ParticipantDto> Participants { get; init; } = [];
 }
 
@@ -27,8 +27,8 @@ public record UserForRegistrationDto
 
 	[DataType(DataType.Password)]
 	[Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
-	public string? ConfirmPassword { get; set; }
-	public string? Confirm { get; init; }
+	public string? ConfirmPassword { get; init; }
+	public DateTime BirthDate { get; init; }
 
 	[Required(ErrorMessage = "Email is required")]
 	[EmailAddress]

@@ -8,11 +8,6 @@
 
   <ItemGroup>
     <Folder Include="Validators\" />
-    <Folder Include="UseCases\Participants\UpdateParticipant\" />
-    <Folder Include="UseCases\Participants\GetParticipant\" />
-    <Folder Include="UseCases\Participants\GetParticipants\" />
-    <Folder Include="UseCases\Participants\DeleteParticipant\" />
-    <Folder Include="UseCases\Participants\CreateParticipant\" />
   </ItemGroup>
 
   <ItemGroup>

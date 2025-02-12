@@ -23,6 +23,8 @@ public static class ApplicationServiceCollectionExtensions
 		{
 			ForwardedHeaders = ForwardedHeaders.All
 		});
+		app.UseRouting();
+		app.UseAuthentication();
 		app.UseAuthorization();
 		return app;
 	}

@@ -1,15 +1,23 @@
 ﻿using System.Reflection.Metadata;
+using System.Text;
+using EventsWebApp.API.CustomTokenProviders;
 using EventsWebApp.Application;
 using EventsWebApp.Application.DTOs;
+using EventsWebApp.Domain.ConfigurationModels;
 using EventsWebApp.Domain.Contracts.Persistence;
 using EventsWebApp.Domain.Contracts.Services;
 using EventsWebApp.Domain.Entities;
 using EventsWebApp.Infrastructure.Persistence;
 using EventsWebApp.Infrastructure.Persistence.Repositories;
 using EventsWebApp.Infrastructure.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using NLog;
+using static Org.BouncyCastle.Math.EC.ECCurve;
 
 namespace EventsWebApp.API.Extensions;
 
@@ -40,12 +48,49 @@ public static class BuilderServiceCollectionExtensions
 			.AllowAnyHeader()
 			.WithExposedHeaders("X-Pagination"));
 		});
+		
+		builder.Services.AddAuthentication();
 
 		builder.Services.AddAutoMapper(x => x.AddProfile(new MappingProfile()));
 		builder.Services.AddMediatR(cfg =>
 			cfg.RegisterServicesFromAssembly(typeof(MappingProfile).Assembly));
 
 		builder.Services.AddScoped<IRepositoryManager, RepositoryManager>();
+
+
+		return builder;
+	}
+
+	public static WebApplicationBuilder AddJwtConfig(this WebApplicationBuilder builder)
+	{
+		var jwtConfiguration = new JwtConfiguration();
+		builder.Configuration.Bind(jwtConfiguration.Section, jwtConfiguration);
+
+		var secretKey = builder.Configuration.GetValue<string>("SECRET");
+		ArgumentNullException.ThrowIfNull(secretKey);
+
+		builder.Services.AddAuthentication(opt =>
+		{
+			opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+			opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+		})
+			.AddJwtBearer(options =>
+			{
+				options.TokenValidationParameters = new TokenValidationParameters
+				{
+					ValidateIssuer = true,
+					ValidateAudience = true,
+					ValidateLifetime = true,
+					ValidateIssuerSigningKey = true,
+
+					ValidIssuer = jwtConfiguration.ValidIssuer,
+					ValidAudience = jwtConfiguration.ValidAudience,
+					IssuerSigningKey = new
+						SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey))
+				};
+			});
+
+		builder.Services.Configure<JwtConfiguration>("JwtSettings", builder.Configuration.GetSection("JwtSettings"));
 		return builder;
 	}
 
@@ -59,10 +104,24 @@ public static class BuilderServiceCollectionExtensions
 		builder.Services.AddScoped<IDataShapeService<ParticipantDto>, DataShapeService<ParticipantDto>>();
 		builder.Services.AddScoped<IDataShapeService<UserDto>, DataShapeService<UserDto>>();
 
+		EmailConfiguration? emailConfig = builder.Configuration
+			.GetSection("EmailConfiguration")
+			.Get<EmailConfiguration>();
+		ArgumentNullException.ThrowIfNull(emailConfig);
+		builder.Services.AddSingleton(emailConfig);
+
+		builder.Services.AddScoped<IEmailSendService, EmailSendService>();
+
+		builder.Services.Configure<FormOptions>(o => {
+			o.ValueLengthLimit = int.MaxValue;
+			o.MultipartBodyLengthLimit = int.MaxValue;
+			o.MemoryBufferThreshold = int.MaxValue;
+		});
+
 		return builder;
 	}
 
-	public static WebApplicationBuilder AddConfigurationIdentity(this WebApplicationBuilder builder)
+	public static WebApplicationBuilder AddConfigIdentity(this WebApplicationBuilder builder)
 	{
 		var idBuilder = builder.Services.AddIdentity<User, Role>(o =>
 		{
@@ -76,10 +135,14 @@ public static class BuilderServiceCollectionExtensions
 			o.Tokens.EmailConfirmationTokenProvider = "emailconfirmation";
 		})
 		.AddEntityFrameworkStores<AppDbContext>()
-		.AddDefaultTokenProviders();
+		.AddDefaultTokenProviders()
+		 .AddTokenProvider<EmailConfirmationTokenProvider<User>>("emailconfirmation");
 
 		builder.Services.Configure<DataProtectionTokenProviderOptions>(opt =>
 			opt.TokenLifespan = TimeSpan.FromHours(2));
+
+		builder.Services.Configure<EmailConfirmationTokenProviderOptions>(opt =>
+			opt.TokenLifespan = TimeSpan.FromDays(3));
 
 		return builder;
 	}

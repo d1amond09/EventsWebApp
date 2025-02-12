@@ -1,7 +1,6 @@
 ﻿namespace EventsWebApp.Domain.Responses;
 
-public sealed class ApiOkResponse<TResult>(TResult result) : ApiBaseResponse(true)
+public sealed class ApiOkResponse<TResult>(TResult result) : ApiBaseResultResponse<TResult>(result, true)
 {
-    public TResult Result { get; set; } = result;
 }
 

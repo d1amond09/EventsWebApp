@@ -1,6 +1,9 @@
 ﻿using EventsWebApp.Infrastructure.Persistence.Extensions.Utility;
 using EventsWebApp.Domain.Entities;
 using System.Linq.Dynamic.Core;
+using MailKit.Search;
+using System.Linq;
+using System.Xml.Linq;
 
 namespace EventsWebApp.Infrastructure.Persistence.Extensions;
 
@@ -14,7 +17,8 @@ public static class RepositoryEventExtensions
 		if (string.IsNullOrWhiteSpace(category))
 			return events;
 
-		return events.Where(e => e.Category.Contains(category, StringComparison.CurrentCultureIgnoreCase));
+		var lowerCaseTerm = category.Trim().ToLower();
+		return events.Where(e => e.Category!.ToLower().Contains(lowerCaseTerm));
 	}
 
 	public static IQueryable<Event> SearchByLocation(this IQueryable<Event> events, string location)
@@ -22,7 +26,8 @@ public static class RepositoryEventExtensions
 		if (string.IsNullOrWhiteSpace(location))
 			return events;
 
-		return events.Where(e => e.Location.Contains(location, StringComparison.CurrentCultureIgnoreCase));
+		var lowerCaseTerm = location.Trim().ToLower();
+		return events.Where(e => e.Location!.ToLower().Contains(lowerCaseTerm));
 	}
 
 	public static IQueryable<Event> SearchByName(this IQueryable<Event> events, string name)
@@ -30,7 +35,8 @@ public static class RepositoryEventExtensions
 		if (string.IsNullOrWhiteSpace(name))
 			return events;
 
-		return events.Where(e => e.Name.Contains(name, StringComparison.CurrentCultureIgnoreCase));
+		var lowerCaseTerm = name.Trim().ToLower();
+		return events.Where(e => e.Name!.ToLower().Contains(lowerCaseTerm));
 	}
 
 	public static IQueryable<Event> Sort(this IQueryable<Event> events, string orderByQueryString)

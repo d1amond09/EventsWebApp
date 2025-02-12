@@ -11,7 +11,7 @@ public record EventDto
 	public string Location { get; init; } = string.Empty;
 	public string Category { get; init; } = string.Empty;
 	public int MaxCountParticipants { get; init; }
-	public string? Image { get; init; } = null;
+	public byte[]? Image { get; init; } = null;
 	public ICollection<ParticipantDto> Participants { get; init; } = [];
 }
 
@@ -23,7 +23,7 @@ public record EventForManipulationDto
 	public string Location { get; init; } = string.Empty;
 	public string Category { get; init; } = string.Empty;
 	public int MaxCountParticipants { get; init; }
-	public string? Image { get; init; } = null;
+	public byte[]? Image { get; init; } = null;
 }
 
 public record EventForUpdateDto : EventForManipulationDto;

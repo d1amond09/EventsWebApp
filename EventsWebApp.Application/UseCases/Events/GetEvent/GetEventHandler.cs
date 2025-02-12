@@ -10,7 +10,7 @@ using MediatR;
 
 namespace EventsWebApp.Application.UseCases.Events.GetEvent;
 
-public class GetEventsHandler(IRepositoryManager rep, IMapper mapper) : IRequestHandler<GetEventUseCase, ApiBaseResponse>
+public class GetEventHandler(IRepositoryManager rep, IMapper mapper) : IRequestHandler<GetEventUseCase, ApiBaseResponse>
 {
 	private readonly IRepositoryManager _rep = rep;
 	private readonly IMapper _mapper = mapper;

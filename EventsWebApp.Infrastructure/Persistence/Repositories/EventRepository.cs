@@ -34,6 +34,33 @@ public class EventRepository(AppDbContext appDbContext) :
 		);
 	}
 
+	public async Task<PagedList<Event>> GetByUserWithPaginationAsync(EventParameters eventParameters, Guid userId, bool trackChanges)
+	{
+		var events = FindAll(trackChanges)
+			.Include(e => e.Participants)
+			.Where(e => e.Participants.Select(x => x.UserId)
+			.Contains(userId))
+			.FilterByDateTime(eventParameters.MinDateTime, eventParameters.MaxDateTime)
+			.SearchByLocation(eventParameters.Location)
+			.SearchByCategory(eventParameters.Category)
+			.SearchByName(eventParameters.Name);
+
+		var count = await events.CountAsync();
+
+		var eventsToList = await events
+			.Sort(eventParameters.OrderBy)
+			.Skip((eventParameters.PageNumber - 1) * eventParameters.PageSize)
+			.Take(eventParameters.PageSize)
+			.ToListAsync();
+
+		return new PagedList<Event>(
+			eventsToList,
+			count,
+			eventParameters.PageNumber,
+			eventParameters.PageSize
+		);
+	}
+
 	public async Task<Event?> GetByIdAsync(Guid id, bool trackChanges) =>
 		await FindByCondition(c => c.Id.Equals(id), trackChanges)
 			 .SingleOrDefaultAsync();

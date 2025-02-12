@@ -5,7 +5,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder
     .AddApplicationServices()
     .AddInfrastructureServices()
-	.AddConfigurationIdentity()
+	.AddConfigIdentity()
+    .AddJwtConfig()
     .AddDataBase();
 
 var app = builder.Build();

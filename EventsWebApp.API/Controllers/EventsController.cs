@@ -10,10 +10,11 @@ using EventsWebApp.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace EventsWebApp.API.Controllers;
 
-[Consumes("application/json")]
 [Route("api/events")]
 [ApiController]
 public class EventsController(ISender sender) : ControllerBase
@@ -33,17 +34,34 @@ public class EventsController(ISender sender) : ControllerBase
 	}
 
 	[HttpGet("{id:guid}", Name = "GetEvent")]
-	public async Task<IActionResult> GetCourse(Guid id)
+	public async Task<IActionResult> GetEvent(Guid id)
 	{
 		var baseResult = await _sender.Send(new GetEventUseCase(id, TrackChanges: false));
 
-		var products = baseResult.GetResult<EventDto>();
+		var evnt = baseResult.GetResult<EventDto>();
 
-		return Ok(products);
+		return Ok(evnt);
 	}
 
+	[Authorize]
+	[HttpGet("me", Name = "GetEventsByUser")]
+	public async Task<IActionResult> GetEventsByUser([FromQuery] EventParameters eventParameters)
+	{
+		if (Guid.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out Guid userId))
+		{
+			var baseResult = await _sender.Send(new GetEventsUseCase(eventParameters, TrackChanges: false));
+
+			var response = baseResult.GetResult<ShapedEntitiesResponse>();
+
+			Response.Headers.Append("X-Pagination", JsonSerializer.Serialize(response.MetaData));
+			return Ok(response.ShapedEntities);
+		}
+		return BadRequest();
+	}
+
+	[Authorize(Roles ="Administrator")]
 	[HttpPost(Name = "CreateEvent")]
-	public async Task<IActionResult> CreateCourse([FromBody] EventForCreationDto evnt)
+	public async Task<IActionResult> CreateEvent([FromForm] EventForCreationDto evnt)
 	{
 		var baseResult = await _sender.Send(new CreateEventUseCase(evnt));
 
@@ -52,16 +70,18 @@ public class EventsController(ISender sender) : ControllerBase
 		return CreatedAtRoute("GetEvent", new { id = createdProduct.Id }, createdProduct);
 	}
 
-	[HttpDelete("{id:guid}")]
-	public async Task<IActionResult> DeleteCourse(Guid id)
+	[Authorize(Roles = "Administrator")]
+	[HttpDelete("{id:guid}", Name="DeleteEvent")]
+	public async Task<IActionResult> DeleteEvent(Guid id)
 	{
 		var baseResult = await _sender.Send(new DeleteEventUseCase(id, TrackChanges: false));
 
 		return NoContent();
 	}
 
-	[HttpPut("{id:guid}")]
-	public async Task<IActionResult> UpdateCourse(Guid id, [FromBody] EventForUpdateDto evnt)
+	[Authorize(Roles = "Administrator")]
+	[HttpPut("{id:guid}", Name = "UpdateEvent")]
+	public async Task<IActionResult> UpdateEvent(Guid id, [FromBody] EventForUpdateDto evnt)
 	{
 		var baseResult = await _sender.Send(new UpdateEventUseCase(id, evnt, TrackChanges: true));
 

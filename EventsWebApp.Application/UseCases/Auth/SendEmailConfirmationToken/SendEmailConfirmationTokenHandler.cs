@@ -23,10 +23,9 @@ using Org.BouncyCastle.Ocsp;
 
 namespace EventsWebApp.Application.UseCases.Auth.SendEmailConfirmationToken;
 
-public class SendEmailConfirmationTokenHandler(IRepositoryManager rep, IEmailSendService emailSender) :
+public class SendEmailConfirmationTokenHandler(IEmailSendService emailSender) :
 	IRequestHandler<SendEmailConfirmationTokenUseCase, ApiBaseResponse>
 {
-	private readonly IRepositoryManager _rep = rep;
 	private readonly IEmailSendService _emailSender = emailSender;
 
 	public async Task<ApiBaseResponse> Handle(SendEmailConfirmationTokenUseCase request, CancellationToken cancellationToken)
