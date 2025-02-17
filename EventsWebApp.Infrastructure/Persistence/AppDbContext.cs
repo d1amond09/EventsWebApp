@@ -1,6 +1,5 @@
 ﻿using EventsWebApp.Domain.Entities;
 using EventsWebApp.Infrastructure.Persistence.Configurations;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 

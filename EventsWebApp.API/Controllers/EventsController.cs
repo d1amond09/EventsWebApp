@@ -1,18 +1,18 @@
-﻿using EventsWebApp.Application.UseCases.Events.CreateEvent;
-using EventsWebApp.Application.UseCases.Events.DeleteEvent;
-using EventsWebApp.Application.UseCases.Events.UpdateEvent;
-using EventsWebApp.Domain.RequestFeatures.ModelParameters;
-using EventsWebApp.Application.UseCases.Events.GetEvents;
-using EventsWebApp.Application.UseCases.Events.GetEvent;
-using EventsWebApp.Application.DTOs;
-using EventsWebApp.API.Extensions;
-using EventsWebApp.Domain.Models;
-using Microsoft.AspNetCore.Mvc;
+﻿using System.Security.Claims;
 using System.Text.Json;
+using EventsWebApp.API.Extensions;
+using EventsWebApp.Application.DTOs;
+using EventsWebApp.Application.UseCases.Events.CreateEvent;
+using EventsWebApp.Application.UseCases.Events.DeleteEvent;
+using EventsWebApp.Application.UseCases.Events.GetEvent;
+using EventsWebApp.Application.UseCases.Events.GetEvents;
+using EventsWebApp.Application.UseCases.Events.GetEventsByUser;
+using EventsWebApp.Application.UseCases.Events.UpdateEvent;
+using EventsWebApp.Domain.Models;
+using EventsWebApp.Domain.RequestFeatures.ModelParameters;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using System.Security.Claims;
-using EventsWebApp.Application.UseCases.Events.GetEventsByUser;
+using Microsoft.AspNetCore.Mvc;
 
 namespace EventsWebApp.API.Controllers;
 
@@ -60,7 +60,7 @@ public class EventsController(ISender sender) : ControllerBase
 		return BadRequest();
 	}
 
-	[Authorize(Roles ="Administrator")]
+	[Authorize(Roles = "Administrator")]
 	[HttpPost(Name = "CreateEvent")]
 	public async Task<IActionResult> CreateEvent([FromForm] EventForCreationDto evnt)
 	{
@@ -72,7 +72,7 @@ public class EventsController(ISender sender) : ControllerBase
 	}
 
 	[Authorize(Roles = "Administrator")]
-	[HttpDelete("{id:guid}", Name="DeleteEvent")]
+	[HttpDelete("{id:guid}", Name = "DeleteEvent")]
 	public async Task<IActionResult> DeleteEvent(Guid id)
 	{
 		var baseResult = await _sender.Send(new DeleteEventUseCase(id, TrackChanges: false));

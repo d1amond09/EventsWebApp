@@ -1,17 +1,17 @@
-﻿using EventsWebApp.Application.UseCases.Participants.GetParticipantsForEvent;
-using EventsWebApp.Application.UseCases.Participants.GetParticipantForEvent;
-using EventsWebApp.Domain.RequestFeatures.ModelParameters;
-using Microsoft.AspNetCore.Authorization;
-using EventsWebApp.Application.DTOs;
-using EventsWebApp.API.Extensions;
-using EventsWebApp.Domain.Models;
-using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
+﻿using System.Security.Claims;
 using System.Text.Json;
-using MediatR;
-using EventsWebApp.Application.UseCases.Participants.SubscribeToEvent;
+using EventsWebApp.API.Extensions;
+using EventsWebApp.Application.DTOs;
 using EventsWebApp.Application.UseCases.Participants.CheckSubscribingToEvent;
+using EventsWebApp.Application.UseCases.Participants.GetParticipantForEvent;
+using EventsWebApp.Application.UseCases.Participants.GetParticipantsForEvent;
+using EventsWebApp.Application.UseCases.Participants.SubscribeToEvent;
 using EventsWebApp.Application.UseCases.Participants.UnsubscribeFromEvent;
+using EventsWebApp.Domain.Models;
+using EventsWebApp.Domain.RequestFeatures.ModelParameters;
+using MediatR;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace EventsWebApp.API.Controllers;
 
@@ -48,7 +48,7 @@ public class ParticipantsController(ISender sender) : ControllerBase
 	[HttpPost(Name = "Subscribe")]
 	public async Task<IActionResult> Subscribe(Guid eventId)
 	{
-		if(Guid.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out Guid userId))
+		if (Guid.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out Guid userId))
 		{
 			var baseResult = await _sender.Send(new SubscribeToEventUseCase(eventId, userId));
 
@@ -75,7 +75,7 @@ public class ParticipantsController(ISender sender) : ControllerBase
 	}
 
 	[Authorize]
-	[HttpDelete(Name= "Unsubscribe")]
+	[HttpDelete(Name = "Unsubscribe")]
 	public async Task<IActionResult> Unsubscribe(Guid eventId)
 	{
 		if (Guid.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out Guid userId))

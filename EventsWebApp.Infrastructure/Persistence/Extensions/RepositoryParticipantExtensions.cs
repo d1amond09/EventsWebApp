@@ -1,6 +1,6 @@
-﻿using EventsWebApp.Infrastructure.Persistence.Extensions.Utility;
+﻿using System.Linq.Dynamic.Core;
 using EventsWebApp.Domain.Entities;
-using System.Linq.Dynamic.Core;
+using EventsWebApp.Infrastructure.Persistence.Extensions.Utility;
 
 namespace EventsWebApp.Infrastructure.Persistence.Extensions;
 

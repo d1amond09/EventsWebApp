@@ -1,7 +1,5 @@
 ﻿using AutoMapper;
-using EventsWebApp.Application.DTOs;
 using EventsWebApp.Domain.Contracts.Persistence;
-using EventsWebApp.Domain.Entities;
 using EventsWebApp.Domain.Responses;
 using MediatR;
 

@@ -1,14 +1,14 @@
-﻿using EventsWebApp.Application.UseCases.Auth.LoginUser;
-using EventsWebApp.Application.UseCases.Auth.CreateToken;
-using EventsWebApp.Application.UseCases.Auth.RegisterUser;
-using Microsoft.AspNetCore.Identity;
+﻿using EventsWebApp.API.Extensions;
 using EventsWebApp.Application.DTOs;
-using EventsWebApp.Domain.Entities;
-using EventsWebApp.API.Extensions;
-using Microsoft.AspNetCore.Mvc;
-using MediatR;
 using EventsWebApp.Application.UseCases.Auth.ConfirmEmail;
+using EventsWebApp.Application.UseCases.Auth.CreateToken;
+using EventsWebApp.Application.UseCases.Auth.LoginUser;
+using EventsWebApp.Application.UseCases.Auth.RegisterUser;
 using EventsWebApp.Application.UseCases.Auth.SendEmailConfirmationToken;
+using EventsWebApp.Domain.Entities;
+using MediatR;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 
 namespace EventsWebApp.API.Controllers;
 

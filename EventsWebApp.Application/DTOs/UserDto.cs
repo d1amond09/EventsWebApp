@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using EventsWebApp.Domain.Entities;
 
 namespace EventsWebApp.Application.DTOs;
 

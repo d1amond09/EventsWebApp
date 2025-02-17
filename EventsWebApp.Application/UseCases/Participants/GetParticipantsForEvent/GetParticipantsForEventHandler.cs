@@ -1,14 +1,14 @@
-﻿using EventsWebApp.Domain.Contracts.Persistence;
-using EventsWebApp.Domain.Contracts.Services;
+﻿using AutoMapper;
 using EventsWebApp.Application.DTOs;
-using EventsWebApp.Domain.Responses;
+using EventsWebApp.Domain.Contracts.Persistence;
+using EventsWebApp.Domain.Contracts.Services;
 using EventsWebApp.Domain.Models;
-using AutoMapper;
+using EventsWebApp.Domain.Responses;
 using MediatR;
 
 namespace EventsWebApp.Application.UseCases.Participants.GetParticipantsForEvent;
 
-public class GetParticipantsForEventHandler(IDataShapeService<ParticipantDto> dataShaper, IRepositoryManager rep, IMapper mapper) : 
+public class GetParticipantsForEventHandler(IDataShapeService<ParticipantDto> dataShaper, IRepositoryManager rep, IMapper mapper) :
 	IRequestHandler<GetParticipantsForEventUseCase, ApiBaseResponse>
 {
 	private readonly IDataShapeService<ParticipantDto> _dataShaper = dataShaper;

@@ -2,10 +2,7 @@
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
-using AutoMapper;
 using EventsWebApp.Application.DTOs;
-using EventsWebApp.Application.UseCases.Auth.RegisterUser;
-using EventsWebApp.Application.UseCases.Events.CreateEvent;
 using EventsWebApp.Domain.ConfigurationModels;
 using EventsWebApp.Domain.Contracts.Persistence;
 using EventsWebApp.Domain.Entities;

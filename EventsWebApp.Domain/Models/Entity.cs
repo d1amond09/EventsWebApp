@@ -39,31 +39,31 @@ public class Entity : DynamicObject, IDictionary<string, object>
 		return true;
 	}
 
-	public void Add(string key, object value) => 
+	public void Add(string key, object value) =>
 		_expando.Add(key, value);
-	public void Add(KeyValuePair<string, object> item) => 
+	public void Add(KeyValuePair<string, object> item) =>
 		_expando.Add(item);
 
-	public bool Remove(string key) => 
+	public bool Remove(string key) =>
 		_expando.Remove(key);
-	public bool Remove(KeyValuePair<string, object> item) => 
+	public bool Remove(KeyValuePair<string, object> item) =>
 		_expando.Remove(item);
 
-	public bool Contains(KeyValuePair<string, object> item) => 
+	public bool Contains(KeyValuePair<string, object> item) =>
 		_expando.Contains(item);
-	public bool ContainsKey(string key) => 
+	public bool ContainsKey(string key) =>
 		_expando.ContainsKey(key);
 
-	public bool TryGetValue(string key, out object value) => 
+	public bool TryGetValue(string key, out object value) =>
 		_expando.TryGetValue(key, out value!);
 
-	public void CopyTo(KeyValuePair<string, object>[] array, int arrayIndex) => 
+	public void CopyTo(KeyValuePair<string, object>[] array, int arrayIndex) =>
 		_expando.CopyTo(array, arrayIndex);
 
-	public void Clear() => 
+	public void Clear() =>
 		_expando.Clear();
 
 	IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
-	public IEnumerator<KeyValuePair<string, object>> GetEnumerator() => 
+	public IEnumerator<KeyValuePair<string, object>> GetEnumerator() =>
 		_expando.GetEnumerator();
 }

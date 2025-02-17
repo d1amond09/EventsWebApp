@@ -1,6 +1,4 @@
-﻿using EventsWebApp.Domain.Entities;
-
-namespace EventsWebApp.Domain.RequestFeatures.ModelParameters;
+﻿namespace EventsWebApp.Domain.RequestFeatures.ModelParameters;
 
 public class ParticipantParameters : RequestParameters
 {

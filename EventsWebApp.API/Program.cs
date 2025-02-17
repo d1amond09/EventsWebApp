@@ -3,22 +3,22 @@ using EventsWebApp.API.Extensions;
 var builder = WebApplication.CreateBuilder(args);
 
 builder
-    .AddApplicationServices()
-    .AddInfrastructureServices()
+	.AddApplicationServices()
+	.AddInfrastructureServices()
 	.AddConfigIdentity()
-    .AddJwtConfig()
-    .AddDataBase();
+	.AddJwtConfig()
+	.AddDataBase();
 
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi();
+	app.MapOpenApi();
 }
 
 app
-    .AddMiddlewares()
-    .AddAppServices()
+	.AddMiddlewares()
+	.AddAppServices()
 	.AddBaseDependencies();
 
 

@@ -1,11 +1,6 @@
 ﻿using AutoMapper;
 using EventsWebApp.Application.DTOs;
-using EventsWebApp.Application.UseCases.Events.GetEvent;
 using EventsWebApp.Domain.Contracts.Persistence;
-using EventsWebApp.Domain.Contracts.Services;
-using EventsWebApp.Domain.Entities;
-using EventsWebApp.Domain.Models;
-using EventsWebApp.Domain.RequestFeatures;
 using EventsWebApp.Domain.Responses;
 using MediatR;
 

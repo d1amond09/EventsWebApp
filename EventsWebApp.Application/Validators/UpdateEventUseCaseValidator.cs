@@ -1,6 +1,6 @@
 ﻿using EventsWebApp.Application.UseCases.Events.UpdateEvent;
-using FluentValidation.Results;
 using FluentValidation;
+using FluentValidation.Results;
 
 namespace EventsWebApp.Application.Validators;
 

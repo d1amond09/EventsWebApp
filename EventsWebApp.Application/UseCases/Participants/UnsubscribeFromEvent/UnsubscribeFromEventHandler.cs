@@ -1,6 +1,6 @@
-﻿using EventsWebApp.Domain.Contracts.Persistence;
+﻿using AutoMapper;
+using EventsWebApp.Domain.Contracts.Persistence;
 using EventsWebApp.Domain.Responses;
-using AutoMapper;
 using MediatR;
 
 namespace EventsWebApp.Application.UseCases.Participants.UnsubscribeFromEvent;

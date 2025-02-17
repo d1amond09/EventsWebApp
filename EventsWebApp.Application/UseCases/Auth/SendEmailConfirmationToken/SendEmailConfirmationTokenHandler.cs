@@ -1,25 +1,7 @@
-﻿using System;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Security.Cryptography;
-using System.Text;
-using AutoMapper;
-using EventsWebApp.Application.DTOs;
-using EventsWebApp.Application.UseCases.Auth.RegisterUser;
-using EventsWebApp.Application.UseCases.Events.CreateEvent;
-using EventsWebApp.Domain.ConfigurationModels;
-using EventsWebApp.Domain.Contracts.Persistence;
-using EventsWebApp.Domain.Contracts.Services;
-using EventsWebApp.Domain.Entities;
+﻿using EventsWebApp.Domain.Contracts.Services;
 using EventsWebApp.Domain.Models;
 using EventsWebApp.Domain.Responses;
 using MediatR;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
-using Org.BouncyCastle.Asn1.Ocsp;
-using Org.BouncyCastle.Ocsp;
 
 namespace EventsWebApp.Application.UseCases.Auth.SendEmailConfirmationToken;
 

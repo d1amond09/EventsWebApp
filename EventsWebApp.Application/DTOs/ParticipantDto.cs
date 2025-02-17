@@ -1,6 +1,4 @@
-﻿using EventsWebApp.Domain.Entities;
-
-namespace EventsWebApp.Application.DTOs;
+﻿namespace EventsWebApp.Application.DTOs;
 
 public record ParticipantDto
 {

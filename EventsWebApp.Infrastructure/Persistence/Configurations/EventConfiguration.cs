@@ -1,7 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using EventsWebApp.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
-using EventsWebApp.Domain.Entities;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace EventsWebApp.Infrastructure.Persistence.Configurations;
 

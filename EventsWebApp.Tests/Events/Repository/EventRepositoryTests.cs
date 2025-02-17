@@ -1,18 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using EventsWebApp.Domain.Entities;
-using EventsWebApp.Domain.RequestFeatures;
+﻿using EventsWebApp.Domain.Entities;
 using EventsWebApp.Domain.RequestFeatures.ModelParameters;
 using EventsWebApp.Infrastructure.Persistence;
 using EventsWebApp.Infrastructure.Persistence.Repositories;
-using Microsoft.EntityFrameworkCore.InMemory;
 using Microsoft.EntityFrameworkCore;
-using Xunit;
-using static System.Net.Mime.MediaTypeNames;
-using System.Xml.Linq;
-using Microsoft.Extensions.Logging;
 
 namespace EventsWebApp.Tests.Events.Repository
 {
@@ -30,7 +20,7 @@ namespace EventsWebApp.Tests.Events.Repository
 
 			using var context = new AppDbContext(_options);
 			_userId = Guid.NewGuid();
-			
+
 			_events =
 			[
 				new() {

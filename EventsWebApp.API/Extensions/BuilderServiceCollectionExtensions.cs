@@ -1,22 +1,22 @@
-﻿using EventsWebApp.Infrastructure.Persistence.Repositories;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using EventsWebApp.Domain.Contracts.Persistence;
-using EventsWebApp.Domain.ConfigurationModels;
-using EventsWebApp.Infrastructure.Persistence;
-using EventsWebApp.Domain.Contracts.Services;
+﻿using System.Text;
 using EventsWebApp.API.CustomTokenProviders;
-using EventsWebApp.Infrastructure.Services;
-using EventsWebApp.Application.Behaviors;
-using Microsoft.AspNetCore.Http.Features;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.AspNetCore.Identity;
-using EventsWebApp.Application.DTOs;
-using Microsoft.EntityFrameworkCore;
-using EventsWebApp.Domain.Entities;
 using EventsWebApp.Application;
+using EventsWebApp.Application.Behaviors;
+using EventsWebApp.Application.DTOs;
+using EventsWebApp.Domain.ConfigurationModels;
+using EventsWebApp.Domain.Contracts.Persistence;
+using EventsWebApp.Domain.Contracts.Services;
+using EventsWebApp.Domain.Entities;
+using EventsWebApp.Infrastructure.Persistence;
+using EventsWebApp.Infrastructure.Persistence.Repositories;
+using EventsWebApp.Infrastructure.Services;
 using FluentValidation;
-using System.Text;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Http.Features;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using NLog;
 
 namespace EventsWebApp.API.Extensions;
@@ -26,7 +26,7 @@ public static class BuilderServiceCollectionExtensions
 	public static WebApplicationBuilder AddDataBase(this WebApplicationBuilder builder)
 	{
 		builder.Services.AddDbContext<AppDbContext>(opts =>
-			opts.UseNpgsql(builder.Configuration.GetConnectionString("DockerConnection"), b =>
+			opts.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"), b =>
 			{
 				b.MigrationsAssembly("EventsWebApp.Infrastructure");
 				b.EnableRetryOnFailure();
@@ -48,7 +48,7 @@ public static class BuilderServiceCollectionExtensions
 			.AllowAnyHeader()
 			.WithExposedHeaders("X-Pagination"));
 		});
-		
+
 		builder.Services.AddAuthentication();
 
 		builder.Services.AddAutoMapper(x => x.AddProfile(new MappingProfile()));
@@ -114,7 +114,8 @@ public static class BuilderServiceCollectionExtensions
 
 		builder.Services.AddScoped<IEmailSendService, EmailSendService>();
 
-		builder.Services.Configure<FormOptions>(o => {
+		builder.Services.Configure<FormOptions>(o =>
+		{
 			o.ValueLengthLimit = int.MaxValue;
 			o.MultipartBodyLengthLimit = int.MaxValue;
 			o.MemoryBufferThreshold = int.MaxValue;

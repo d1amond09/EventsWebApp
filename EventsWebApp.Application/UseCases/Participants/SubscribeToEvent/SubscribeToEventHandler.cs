@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using EventsWebApp.Application.DTOs;
 using EventsWebApp.Domain.Contracts.Persistence;
 using EventsWebApp.Domain.Entities;
 using EventsWebApp.Domain.Responses;
@@ -17,7 +16,7 @@ public class SubscribeToEventHandler(IRepositoryManager rep, IMapper mapper) : I
 		int count = await _rep.Participants.GetCountOfParticipantsForEventAsync(request.EventId);
 		bool participantSubscribed = await _rep.Participants.ParticipantContainsForEventAsync(request.EventId, request.UserId);
 
-		if(participantSubscribed)
+		if (participantSubscribed)
 		{
 			return new ApiBadRequestResponse("You are already subscribed to this event.");
 		}

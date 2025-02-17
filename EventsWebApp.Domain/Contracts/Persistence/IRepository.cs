@@ -1,7 +1,4 @@
-﻿using EventsWebApp.Domain.Entities;
-using EventsWebApp.Domain.RequestFeatures;
-
-namespace EventsWebApp.Domain.Contracts.Persistence;
+﻿namespace EventsWebApp.Domain.Contracts.Persistence;
 
 public interface IRepository<T> where T : class
 {

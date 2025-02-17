@@ -1,14 +1,9 @@
-﻿using System;
-using AutoMapper;
-using EventsWebApp.Application.DTOs;
-using EventsWebApp.Application.UseCases.Events.CreateEvent;
+﻿using AutoMapper;
 using EventsWebApp.Domain.Contracts.Persistence;
 using EventsWebApp.Domain.Entities;
-using EventsWebApp.Domain.Models;
 using EventsWebApp.Domain.Responses;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
-using Org.BouncyCastle.Asn1.Ocsp;
 
 namespace EventsWebApp.Application.UseCases.Auth.RegisterUser;
 
@@ -22,7 +17,7 @@ public class RegisterUserHandler(IRepositoryManager rep, IMapper mapper) : IRequ
 		var user = _mapper.Map<User>(request.UserForRegistrationDto);
 
 		var identityResult = await _rep.Users.RegisterAsync(user, request.UserForRegistrationDto.Password);
-		
+
 		if (identityResult.Succeeded)
 			await _rep.Users
 				.AddRolesToUserAsync(user, request.UserForRegistrationDto.Roles);

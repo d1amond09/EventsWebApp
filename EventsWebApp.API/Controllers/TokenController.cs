@@ -1,10 +1,10 @@
-﻿using EventsWebApp.Application.UseCases.Auth.CreateToken;
-using EventsWebApp.Application.UseCases.Auth.RefreshToken;
+﻿using EventsWebApp.API.Extensions;
 using EventsWebApp.Application.DTOs;
+using EventsWebApp.Application.UseCases.Auth.CreateToken;
+using EventsWebApp.Application.UseCases.Auth.RefreshToken;
 using EventsWebApp.Domain.Entities;
-using EventsWebApp.API.Extensions;
-using Microsoft.AspNetCore.Mvc;
 using MediatR;
+using Microsoft.AspNetCore.Mvc;
 
 namespace EventsWebApp.API.Controllers;
 

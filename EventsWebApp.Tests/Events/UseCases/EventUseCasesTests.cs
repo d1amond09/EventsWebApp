@@ -138,10 +138,12 @@ public class UseCasesTests
 		// Arrange
 		var trackChanges = true;
 		var updateEventUseCase = new UpdateEventUseCase(Guid.NewGuid(), new EventForUpdateDto(), true);
-		var existingEvent = new Event() {
+		var existingEvent = new Event()
+		{
 			DateTime = new DateTime(2025, 2, 12, 14, 0, 36, 956)
 		};
-		var updatedEvent = new Event() {
+		var updatedEvent = new Event()
+		{
 			DateTime = new DateTime(2025, 2, 12, 14, 0, 36, 956)
 		};
 

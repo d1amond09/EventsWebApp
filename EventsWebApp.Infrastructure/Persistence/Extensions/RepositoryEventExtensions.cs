@@ -1,9 +1,6 @@
-﻿using EventsWebApp.Infrastructure.Persistence.Extensions.Utility;
+﻿using System.Linq.Dynamic.Core;
 using EventsWebApp.Domain.Entities;
-using System.Linq.Dynamic.Core;
-using MailKit.Search;
-using System.Linq;
-using System.Xml.Linq;
+using EventsWebApp.Infrastructure.Persistence.Extensions.Utility;
 
 namespace EventsWebApp.Infrastructure.Persistence.Extensions;
 

@@ -4,5 +4,5 @@ using MediatR;
 
 namespace EventsWebApp.Application.UseCases.Auth.CreateToken;
 
-public sealed record CreateTokenUseCase(User User, bool PopulateExp) : 
+public sealed record CreateTokenUseCase(User User, bool PopulateExp) :
 	IRequest<ApiBaseResponse>;

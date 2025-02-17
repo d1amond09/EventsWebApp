@@ -1,5 +1,4 @@
-﻿using EventsWebApp.Domain.RequestFeatures.ModelParameters;
-using EventsWebApp.Domain.Responses;
+﻿using EventsWebApp.Domain.Responses;
 using MediatR;
 
 namespace EventsWebApp.Application.UseCases.Events.GetEvent;

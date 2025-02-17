@@ -1,21 +1,18 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using EventsWebApp.Application.DTOs;
-using EventsWebApp.Application.UseCases.Auth.CreateToken;
 using EventsWebApp.Domain.ConfigurationModels;
 using EventsWebApp.Domain.Contracts.Persistence;
 using EventsWebApp.Domain.Entities;
 using EventsWebApp.Domain.Responses;
 using MediatR;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
 namespace EventsWebApp.Application.UseCases.Auth.RefreshToken;
 
-public class RefreshTokenHandler(IOptionsMonitor<JwtConfiguration> configuration, IConfiguration config, IRepositoryManager rep) : 
+public class RefreshTokenHandler(IOptionsMonitor<JwtConfiguration> configuration, IConfiguration config, IRepositoryManager rep) :
 	IRequestHandler<RefreshTokenUseCase, ApiBaseResponse>
 {
 	private readonly IOptionsMonitor<JwtConfiguration> _configuration = configuration;
@@ -51,10 +48,10 @@ public class RefreshTokenHandler(IOptionsMonitor<JwtConfiguration> configuration
 			ValidateIssuerSigningKey = true,
 			IssuerSigningKey = new SymmetricSecurityKey(
 				Encoding.UTF8.GetBytes(secretValue)),
-				ValidateLifetime = true,
-				ValidIssuer = JwtConfiguration.ValidIssuer,
-				ValidAudience = JwtConfiguration.ValidAudience
-			};
+			ValidateLifetime = true,
+			ValidIssuer = JwtConfiguration.ValidIssuer,
+			ValidAudience = JwtConfiguration.ValidAudience
+		};
 
 		var tokenHandler = new JwtSecurityTokenHandler();
 		var principal = tokenHandler

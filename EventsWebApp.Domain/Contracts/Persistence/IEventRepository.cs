@@ -1,6 +1,6 @@
 ﻿using EventsWebApp.Domain.Entities;
-using EventsWebApp.Domain.RequestFeatures.ModelParameters;
 using EventsWebApp.Domain.RequestFeatures;
+using EventsWebApp.Domain.RequestFeatures.ModelParameters;
 
 namespace EventsWebApp.Domain.Contracts.Persistence;
 
