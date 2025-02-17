@@ -26,7 +26,7 @@ public static class BuilderServiceCollectionExtensions
 	public static WebApplicationBuilder AddDataBase(this WebApplicationBuilder builder)
 	{
 		builder.Services.AddDbContext<AppDbContext>(opts =>
-			opts.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"), b =>
+			opts.UseNpgsql(builder.Configuration.GetConnectionString("DockerConnection"), b =>
 			{
 				b.MigrationsAssembly("EventsWebApp.Infrastructure");
 				b.EnableRetryOnFailure();
