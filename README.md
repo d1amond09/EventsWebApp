@@ -11,13 +11,18 @@ git clone https://github.com/d1amond09/EventsWebApp.git
 
 ### Шаг 2. Настройка базы данных
 
-1. Откройте файл `appsettings.json` и настройте строку подключения к вашей базе данных:
+1. Откройте файл `appsettings.json` и настройте строку подключения к вашей базе данных и `validAudience`:
 
 ```json
 "ConnectionStrings": {
     "DefaultConnection": "YourPostgreSQLConnectionString"
-}
-```
+},
+"JwtSettings": {
+    ...
+    "validAudience": "https://localhost:{ваш порт}"
+    ...
+},
+``` 
 
 2. В консоли Package Manager Console выполните миграции для создания базы данных:
 
@@ -49,6 +54,7 @@ Update-Database
       "Roles":["Administrator"]
      }
      ```
+   - Перейдите в элекронную почту указанную в поле `Email` и подтвердите регистрацию, нажав на ссылку.
    - Отправьте POST-запрос с запущенным проектом на `https://localhost:{ваши порт}/api/auth/login` с телом:
      ```json
      {
@@ -56,8 +62,8 @@ Update-Database
        "password": "YourPassword!1234"
      }
      ```
-   - Ответ будет содержать JWT-токен.
+   - Ответ будет содержать JWT-токен (access и refresh).
 
-2. **Использование токена**:
+3. **Использование токена**:
 
    - В Authorization выберете в Auth Type **Bearer Token**, вставьте ваш JWT-токен
