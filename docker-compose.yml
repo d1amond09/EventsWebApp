@@ -1,0 +1,29 @@
+
+volumes:
+  pgdata:
+    driver: local
+
+services:
+  eventswebapp.api:
+    image: ${DOCKER_REGISTRY-}eventswebappapi
+    build:
+      context: .
+      dockerfile: EventsWebApp.API/Dockerfile
+
+  eventswebapp.client:
+    image: ${DOCKER_REGISTRY-}eventswebappclient
+    build:
+      context: W:\Projects\NodeJS\event-web-app-react 
+      dockerfile: Dockerfile 
+    ports:
+      - "3000:80" 
+    
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+    ports:
+      - "5430:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
