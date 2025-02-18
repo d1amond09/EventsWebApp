@@ -1,4 +1,4 @@
-# EventsWebApp
+# EventsWebApp [![build and test docker](https://github.com/d1amond09/EventsWebApp/actions/workflows/ci.yml/badge.svg)](https://github.com/d1amond09/EventsWebApp/actions/workflows/ci.yml)
 ## Настройка проекта
 
 ### Шаг 1. Клонирование репозитория
