@@ -12,9 +12,9 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["EventsWebApp.API/EventsWebApp.API.csproj", "EventsWebApp.API/"]
-COPY ["EventsWebApp.Application/EventsWebApp.Application.csproj", "EventsWebApp.Application/"]
-COPY ["EventsWebApp.Domain/EventsWebApp.Domain.csproj", "EventsWebApp.Domain/"]
+COPY ["../EventsWebApp.API/EventsWebApp.API.csproj", "EventsWebApp.API/"]
+COPY ["../EventsWebApp.Application/EventsWebApp.Application.csproj", "EventsWebApp.Application/"]
+COPY ["../EventsWebApp.Domain/EventsWebApp.Domain.csproj", "EventsWebApp.Domain/"]
 COPY ["../EventsWebApp.Infrastructure/EventsWebApp.Infrastructure.csproj", "EventsWebApp.Infrastructure/"]
 RUN dotnet restore "./EventsWebApp.API/EventsWebApp.API.csproj"
 COPY . .
