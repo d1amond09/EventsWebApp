@@ -7,7 +7,6 @@ on:
     branches: [ "master" ]
 
 jobs:
-
   build:
 
     runs-on: ubuntu-latest
@@ -32,7 +31,11 @@ jobs:
         dockerfile: ./Dockerfile
         push: true
         tags: d1amond9/events-web-app-api:latest
-
+    
+    - name: List files
+      run: |
+        ls -R
+      
     - name: Run tests in Docker
       run: |
         docker run --rm d1amond9/events-web-app-api:latest dotnet test
