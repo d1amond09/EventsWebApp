@@ -11,7 +11,7 @@ COPY . ./
 RUN dotnet restore "./EventsWebApp.API.csproj"
 COPY . .
 WORKDIR "/src/EventsWebApp.API"
-RUN dotnet build "./EventsWebApp.API.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet build "./EventsWebApp.API/EventsWebApp.API.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
