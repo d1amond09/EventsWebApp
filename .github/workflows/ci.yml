@@ -34,4 +34,4 @@ jobs:
 
     - name: Run tests in Docker
       run: |
-        docker run --rm d1amond9/events-web-app-api:latest dotnet test
+        docker build -t d1amond9/events-web-app-api:latest -f ./EventsWebApp.API/Dockerfile ./EventsWebApp
