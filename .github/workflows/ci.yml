@@ -35,9 +35,9 @@ jobs:
         push: true
         tags: d1amond9/events-web-app-api:latest
       
-    - name: Run tests in Docker
+    - name: Run application in Docker
       run: |
-        docker run -d -e JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }} --name events-web-app-api d1amond9/events-web-app-api:latest
+        docker run -d -e JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }} -p 8080:8080 --name myapp d1amond9/events-web-app-api:latest
 
     - name: Wait for the application to be ready
       run: |
@@ -50,6 +50,10 @@ jobs:
           sleep 2
         done
         exit 1
-        
+    
+    - name: Get container logs
+      run: |
+        docker logs myapp
+    
     - name: Complete workflow
       run: echo "Workflow completed successfully!"
