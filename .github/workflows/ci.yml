@@ -37,11 +37,11 @@ jobs:
       
     - name: Run application in Docker
       run: |
-        docker run -d -e JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }} -p 8080:8080 --name myapp d1amond9/events-web-app-api:latest
+        docker run -d -e JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }} -p --name myapp d1amond9/events-web-app-api:latest
 
     - name: Wait for the application to be ready
       run: |
-        for i in {1..30}; do
+        for i in {1..10}; do
           if curl --silent --fail http://localhost:8080; then
             echo "Application is running."
             exit 0
