@@ -37,7 +37,7 @@ jobs:
       
     - name: Run application in Docker
       run: |
-        docker run -d -e -p JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }} --name myapp d1amond9/events-web-app-api:latest
+        docker run -d -e JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }} --name myapp d1amond9/events-web-app-api:latest
 
     - name: Wait for the application to be ready
       run: |
