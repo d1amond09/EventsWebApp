@@ -68,7 +68,7 @@ public static class BuilderServiceCollectionExtensions
 		var jwtConfiguration = new JwtConfiguration();
 		builder.Configuration.Bind(jwtConfiguration.Section, jwtConfiguration);
 
-		var secretKey = builder.Configuration.GetValue<string>("SECRET");
+		var secretKey = builder.Configuration.GetValue<string>("SECRET") ?? Environment.GetEnvironmentVariable("JWT_SECRET_KEY");
 		ArgumentNullException.ThrowIfNull(secretKey);
 
 		builder.Services.AddAuthentication(opt =>
