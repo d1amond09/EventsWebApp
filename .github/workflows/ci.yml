@@ -28,7 +28,7 @@ jobs:
     - name: Build and push Docker image
       uses: docker/build-push-action@v3
       with:
-        context: .
+        context: ./EventsWebApp/EventsWebApp.API
         dockerfile: ./Dockerfile
         push: true
         tags: d1amond9/events-web-app-api:latest
