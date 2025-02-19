@@ -49,7 +49,7 @@ Update-Database
       "LastName":"Ivanov",
       "UserName":"ivan",
       "Password":"YourPassword!1234",
-      "ConfirmPassword":"MrD1amond!09",
+      "ConfirmPassword":"YourPassword!1234",
       "Email":"your@gmail.com",
       "BirthDate":"2004-10-31T00:00:00Z",
       "Roles":["Administrator"]
