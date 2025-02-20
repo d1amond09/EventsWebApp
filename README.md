@@ -39,7 +39,7 @@ Update-Database
 cd path/to/folder/EventsWebApp
 ```
 4. Откройте командную строку (cmd) и выполните следующие команды:
-```docker
+```bash
 docker build -t event-web-app-api -f ./EventsWebApp.API/Dockerfile .
 docker run -p {ваш host-порт}:{docker порт} -e JWT_SECRET_KEY=$'YOUR_JWT_SECRET_KEY_EVENT_WEB_APP_API' event-web-app-api
 ```
