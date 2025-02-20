@@ -19,7 +19,7 @@ git clone https://github.com/d1amond09/EventsWebApp.git
     "DefaultConnection": "YourPostgreSQLConnectionString"
 },
 "JwtSettings": {
-    "validAudience": "https://localhost:{ваш host-порт}"
+    "validAudience": "http://localhost:{ваш host-порт}"
 },
 ``` 
 
@@ -50,7 +50,7 @@ docker run -p {ваш host-порт}:{docker порт} -e JWT_SECRET_KEY=$'YOUR_
 
 1. **Получение JWT-токена**:
 
-   - Отправьте POST-запрос с запущенным проектом на `https://localhost:{ваш порт}/api/auth` с телом:
+   - Отправьте POST-запрос с запущенным проектом на `http://localhost:{ваш порт}/api/auth` с телом:
      ```json
      {
       "FirstName":"Ivan",
@@ -64,7 +64,7 @@ docker run -p {ваш host-порт}:{docker порт} -e JWT_SECRET_KEY=$'YOUR_
      }
      ```
    - Перейдите в элекронную почту указанную в поле `Email` и подтвердите регистрацию, нажав на ссылку.
-   - Отправьте POST-запрос с запущенным проектом на `https://localhost:{ваши порт}/api/auth/login` с телом:
+   - Отправьте POST-запрос с запущенным проектом на `http://localhost:{ваши порт}/api/auth/login` с телом:
      ```json
      {
        "email": "your@gmail.com",
