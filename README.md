@@ -19,9 +19,7 @@ git clone https://github.com/d1amond09/EventsWebApp.git
     "DefaultConnection": "YourPostgreSQLConnectionString"
 },
 "JwtSettings": {
-    ...
     "validAudience": "https://localhost:{ваш порт}"
-    ...
 },
 ``` 
 
@@ -35,6 +33,13 @@ Update-Database
 
 1. Убедитесь, что проект **EventsWebApp.API** выбран в качестве стартового.
 2. Запустите приложение с помощью http/https или Container (Dockerfile)
+
+3. Если приложение не запускается через Docker, перейдите в корневую папку решения (`./EventsWebApp/`).
+4. Откройте командную строку (cmd) и выполните следующие команды:
+```bash
+docker build -t event-web-app-api -f ./EventsWebApp.API/Dockerfile .
+docker run -e JWT_SECRET_KEY=$'YOUR_JWT_SECRET_KEY_EVENT_WEB_APP_API' event-web-app-api
+```
 
 ### Шаг 4. Тестирование API
 
