@@ -17,6 +17,9 @@ services:
       dockerfile: Dockerfile 
     ports:
       - "3000:80" 
+    depends_on: 
+      - eventswebapp.api
+    
     
   postgres:
     image: postgres:latest

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using EventsWebApp.Application.DTOs;
 using EventsWebApp.Domain.Contracts.Persistence;
 using EventsWebApp.Domain.Entities;
 using EventsWebApp.Domain.Responses;
@@ -19,8 +20,19 @@ public class RegisterUserHandler(IRepositoryManager rep, IMapper mapper) : IRequ
 		var identityResult = await _rep.Users.RegisterAsync(user, request.UserForRegistrationDto.Password);
 
 		if (identityResult.Succeeded)
-			await _rep.Users
-				.AddRolesToUserAsync(user, request.UserForRegistrationDto.Roles);
+		{
+			if(request.UserForRegistrationDto.Roles?.Count > 0)
+			{
+				await _rep.Users
+					.AddRolesToUserAsync(user, request.UserForRegistrationDto.Roles);
+			}
+			else
+			{
+				await _rep.Users
+					.AddRolesToUserAsync(user, ["User"]);
+			}
+
+		}
 
 		await _rep.SaveAsync();
 

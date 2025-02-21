@@ -1,0 +1,20 @@
+# This is a generated file. Not intended for manual editing.
+services:
+  eventswebapp.api:
+    build:
+      context: "W:\\Projects\\VisualStudioProjects\\EventsWebApp"
+      dockerfile: "EventsWebApp.API/Dockerfile"
+      target: "base"
+    command: []
+    entrypoint:
+    - "dotnet"
+    - "/app/bin/Debug/net9.0/EventsWebApp.API.dll"
+    environment:
+      DOTNET_USE_POLLING_FILE_WATCHER: "true"
+    image: "eventswebappapi:dev"
+    ports: []
+    volumes:
+    - "W:\\Projects\\VisualStudioProjects\\EventsWebApp\\EventsWebApp.API:/app:rw"
+    - "W:\\Projects\\VisualStudioProjects\\EventsWebApp:/src:rw"
+    - "C:\\Users\\d1amond\\.nuget\\packages:/home/app/.nuget/packages"
+    working_dir: "/app"
